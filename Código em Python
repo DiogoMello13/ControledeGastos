@@ -1,6 +1,3 @@
-def pergunta():
-    resposta = str(input('Deseja inserir mais uma conta? [s/n]'))
-
 def linha():
     print('-' * 50)
     print()
