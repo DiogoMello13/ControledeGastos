@@ -1,0 +1,152 @@
+def pergunta():
+    resposta = str(input('Deseja inserir mais uma conta? [s/n]'))
+
+def linha():
+    print('-' * 50)
+    print()
+def despesas():
+    import os
+    print('Controle de Gastos')
+    linha()
+    cont, totalcontas, valorcartao = 0, 0, 0
+    dados = {}
+    contas = []
+
+    while cont == 0:
+        dados['conta: '] = str(input('Conta: '))
+        dados['valor: '] = float(input('Valor da conta: '))
+        contas.append(dados.copy())
+
+        contt, conf = 0, 0
+        while contt == 0:
+            if conf > 0:
+                print('Desculpe, não consegui entender! ')
+            resposta = str(input('Deseja inserir mais uma conta? [s/n] '))
+            if resposta == 's' or resposta == 'S' or resposta == 'n' or resposta == 'N':
+                contt += 1
+            conf += 1
+        os.system('cls')
+        totalcontas += dados['valor: ']
+        if resposta == 'n' or resposta == 'N':
+            cont += 1
+    linha()
+
+    contt, conf = 0, 0
+
+    while contt == 0:
+        if conf > 0:
+            print('Desculpe, não consegui entender! ')
+        resp = str(input('Você deseja especificar os gastos do cartão? [s/n] '))
+        if resp == 's' or resp == 'S' or resp == 'n' or resp == 'N':
+            contt += 1
+        conf += 1
+
+    cartao = {}
+    totalcartaodiogo, totalcartao, totalcartaomae = [], [], []
+    valordiogo, valormae = 0, 0
+    if resp == 's' or resp == 'S':
+        cont = 0
+        print('Insira os seus gastos: ')
+        while cont == 0:
+            cartao['conta: '] = str(input('Gasto com: '))
+            cartao['valor: '] = float(input('Valor gasto: '))
+            contt, conf = 0, 0
+            while contt == 0:
+                if conf > 0:
+                    print('Desculpe, não consegui entender! ')
+                separacao = int(input('Se esse gasto foi seu digite 1 - Se esse gasto foi de outra pessoa digite 2: '))
+                if separacao == 1 or separacao == 2:
+                    contt += 1
+                conf +=1
+            if separacao == 1:
+                cartao['Dono do gasto: '] = 'Você'
+                totalcartaodiogo.append(cartao.copy())
+                totalcartao.append(cartao.copy())
+                valorcartao += cartao['valor: ']
+                valordiogo += cartao['valor: ']
+
+            if separacao == 2:
+                cartao['Dono do gasto: '] = 'Outro'
+                totalcartaomae.append(cartao.copy())
+                totalcartao.append(cartao.copy())
+                valorcartao += cartao['valor: ']
+                valormae += cartao['valor: ']
+
+
+
+            contt, conf = 0, 0
+            while contt == 0:
+                if conf > 0:
+                    print('Desculpe, não consegui entender! ')
+                res = str(input('Deseja inserir mais um gasto? [s/n] '))
+                if res == 's' or res == 'S' or res == 'n' or res == 'N':
+                    contt += 1
+                conf += 1
+
+            os.system('cls')
+            if res == 'n' or res == 'N':
+                cont += 1
+        linha()
+
+
+        if resp == 's' or resp == 'S':
+
+            linha()
+            contt, conf = 0, 0
+            while contt == 0:
+                if conf > 0:
+                    print('Desculpe, não consegui entender! ')
+                respp = str(input('Deseja verificar os gastos do cartão detalhados? [s/n] '))
+                if respp == 's' or respp == 'S' or respp == 'n' or respp == 'N':
+                    contt += 1
+                conf += 1
+            if respp == 's' or respp == 'S':
+                for c in totalcartao:
+                    print(c)
+                    linha()
+            proximo = str(input('Aperte qualquer tecla para prosseguir!'))
+            os.system('cls')
+    if resp == 'n' or resp == 'N':
+        valorcartao = float(input('Quanto você gastou no cartão? '))
+        linha()
+    print(f'Valor total do cartão foi R$ {valorcartao:.2f}!')
+    print(f'Valor gasto por você R$ {valordiogo:.2f}')
+    print(f'Valor gasto pelos outros R$ {valormae:.2f}')
+    linha()
+    totalcontas += valorcartao
+    faturacartao = {}
+    faturacartao['conta: '] = 'cartão'
+    faturacartao['valor: '] = valorcartao
+    contas.append(faturacartao.copy())
+    print('Gastos totais')
+    for c in contas:
+        print(c)
+    linha()
+
+    vale = float(input('Informe o valor do vale: '))
+    pagamento = float(input('Informe o valor do pagamento no final do mês: '))
+    extra = float(input('Informe caso haja algum valor extra mensal: '))
+    os.system('cls')
+    dinheiro = vale + pagamento + extra
+    contasapagar = valorcartao + totalcontas
+    linha()
+    print(f'Esse mês você gastou R$ {contasapagar}')
+    print(f'E você recebeu esse mês R$ {dinheiro}')
+    print(f'Seu saldo este mês é de R$ {dinheiro - contasapagar}')
+    contt, conf = 0, 0
+    while contt == 0:
+        if conf > 0:
+            print('Desculpe, não consegui entender! ')
+        a = str(input('Deseja verificar outros valores? [s/n] '))
+        if a == 's' or a == 'S' or a == 'n' or a == 'N':
+            contt += 1
+        conf += 1
+
+    if a == 's' or a == 'S':
+        despesas()
+    else:
+        linha()
+        print('Obrigado por utilizar nosso programa!!!')
+        exit = str(input('Digite qualquer coisa para sair! '))
+
+despesas()
