@@ -110,7 +110,6 @@ def despesas():
     print(f'Valor gasto por você R$ {valordiogo:.2f}')
     print(f'Valor gasto pelos outros R$ {valormae:.2f}')
     linha()
-    totalcontas += valorcartao
     faturacartao = {}
     faturacartao['conta: '] = 'cartão'
     faturacartao['valor: '] = valorcartao
