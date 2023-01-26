@@ -12,9 +12,50 @@ def gasto(msg):
 def linha():
     print('-' * 50)
     print()
+
+def gastoSemErro(txt):
+    cont, erro, error = 0, 0, 0
+    while cont == 0:
+        gasto = str(input(txt))
+        try:
+            error += 1
+            valor = float(gasto)
+
+        except(ValueError, TypeError, UnboundLocalError):
+            print('Erro, por favor digite um valor válido, caso tenha casa decimal utilize ponto no lugar da vírgula!!')
+            erro += 1
+        finally:
+            if erro != error:
+                cont += 1
+    return valor
+
+def separacaoCartao(txt):
+    cont, erro, error = 0, 0, 0
+    while cont == 0:
+        gasto = str(input(txt))
+        try:
+            error += 1
+            valor = int(gasto)
+
+        except(ValueError, TypeError, UnboundLocalError):
+            erro += 1
+        finally:
+            lis = [1, 2]
+            if erro != error and valor in lis:
+                cont += 1
+            else:
+                print('Por favor, informe número 1 ou número 2!')
+
+    return valor
+
+
+
+
 def despesas():
     import os
     print('Controle de Gastos')
+    print('Informe seus gastos e ganhos, para saber seu saldo atual!!!')
+    print('OBS: Caso haja gastos no cartão de crédito, haverá um campo exclusivo para suas informações, aguarde para preenche-lo!')
     linha()
     cont, totalcontas, valorcartao = 0, 0, 0
     dados = {}
@@ -22,7 +63,7 @@ def despesas():
 
     while cont == 0:
         dados['conta: '] = str(input('Conta: '))
-        dados['valor: '] = float(input('Valor da conta: '))
+        dados['valor: '] = gastoSemErro('Valor da conta: ')
         contas.append(dados.copy())
         resposta = gasto('Deseja inserir mais um gasto? [s/n] ')
         os.system('cls')
@@ -41,12 +82,12 @@ def despesas():
         print('Insira os seus gastos: ')
         while cont == 0:
             cartao['conta: '] = str(input('Gasto com: '))
-            cartao['valor: '] = float(input('Valor gasto: '))
+            cartao['valor: '] = gastoSemErro('Valor gasto: ')
             contt, conf = 0, 0
             while contt == 0:
                 if conf > 0:
                     print('Desculpe, não consegui entender! ')
-                separacao = int(input('Se esse gasto foi seu digite 1 - Se esse gasto foi de outra pessoa digite 2: '))
+                separacao = separacaoCartao('Se esse gasto foi seu digite 1 - Se esse gasto foi de outra pessoa digite 2: ')
                 if separacao == 1 or separacao == 2:
                     contt += 1
                 conf +=1
@@ -98,9 +139,9 @@ def despesas():
         print(c)
     linha()
 
-    vale = float(input('Informe o valor do vale: '))
-    pagamento = float(input('Informe o valor do pagamento no final do mês: '))
-    extra = float(input('Informe caso haja algum valor extra mensal: '))
+    vale = gastoSemErro('Informe o valor do vale: ')
+    pagamento = gastoSemErro('Informe o valor do pagamento no final do mês: ')
+    extra = gastoSemErro('Informe caso haja algum valor extra mensal: ')
     os.system('cls')
     dinheiro = vale + pagamento + extra
     contasapagar = valorcartao + totalcontas
